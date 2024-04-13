@@ -50,7 +50,7 @@ const Page = () => {
 
     <Input onChange={(e:any)=>setEmail(e.target.value)} type="email" variant="bordered" name="email" label="Email" className="w-[20rem]" />
 <Input onChange={(e:any)=>setPassword(e.target.value)}  type="text" name="password"  variant="bordered" label="Password" />
-<p className='text-sm'>Don't have an account? <Link className='text-blue-600' href="/auth/register">Register</Link></p>
+<p className='text-sm'>Don&apos;t have an account? <Link className='text-blue-600' href="/auth/register">Register</Link></p>
 <Button variant='solid' className='bg-cyan-600 w-[20rem]' isLoading={open} type='submit'>
     Submit
     </Button>
