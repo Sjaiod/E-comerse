@@ -1,13 +1,13 @@
 "use client"
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState ,Suspense} from 'react'
 import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link,Button, Input, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Avatar} from "@nextui-org/react";
-import { useParams, useSearchParams } from 'next/navigation';
+import { useParams, useSearchParams  } from 'next/navigation';
 import { SearchIcon } from './SearchIcon';
 import { useRouter } from 'next/navigation';
 import { NextURL } from 'next/dist/server/web/next-url';
 
 
-const Nav = () => {
+const Page = () => {
     const [user,setUser]=useState<any>()
    
 
@@ -108,4 +108,10 @@ const Nav = () => {
   )
 }
 
-export default Nav
+const Nav = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+      <Page />
+  </Suspense>
+);
+
+export default Nav;

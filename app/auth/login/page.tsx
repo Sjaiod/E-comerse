@@ -1,64 +1,74 @@
 "use client"
-import React, { useState } from 'react'
-import {Input ,Button} from "@nextui-org/react";
-import Link from 'next/link';
-import { log } from 'console';
-import { useRouter } from 'next/navigation';
+import Nav from '@/components/Nav';
+import React, { useEffect, useState, Suspense } from 'react';
+import { useParams,useSearchParams } from 'next/navigation';
+import { Card, CardBody, CardFooter, Image, useDisclosure } from "@nextui-org/react";
+import ProductsModal from '@/components/ProductsModal';
 
 const Page = () => {
-    const [email,setEmail]=useState()
-    const [password,setPassword] = useState()
-    const [open,setOpen]=useState(false)
-    const router=useRouter()
+    const [list, setList] = useState([]);
+    const [activeModal, setActiveModal] = useState(null);
+    const { search } = useParams(); // Destructure search directly from useParams
+    const searchh = useSearchParams().get("search"); // useSearchParams can be used with useSuspense() for data fetching
 
-    const handleSubmit=async(e)=>{
-        e.preventDefault()
-        setOpen(true)
-        const res=await fetch("/api/v1/user"
-        ,
-        {
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body:JSON.stringify({
-                email,
-                password
-            })
+    const getData = async () => {
+        try {
+            const getdata = await fetch(`/api/v2/products/search?search=${searchh}`);
+            const data = await getdata.json();
+            setList(data);
+        } catch (error) {
+            console.log(error);
         }
-        ).then(response => response.json())
-        .then(data => {
-            localStorage.setItem("user",JSON.stringify(data.message))
-            router.push("/")
+    };
 
-        })
-        .catch(error => console.error(error));
-            
-            
-           // localStorage.setItem("user", JSON.stringify(res.json))
-    }
-    
-  return (
-    <div className='flex container items-center justify-center h-screen'>
-        <div className=' w-[790px] h-[590px] bg-cyan-600 rounded-[100%]  absolute    blur-[100px] '>
+    useEffect(() => {
+        getData();
+    }, [search]);
 
-        </div>
+    return (
+        <main className='min-h-screen'>
+            <Nav />
+            <section className='flex flex-col items-center justify-center px-10 py-10'>
+                <h2 className='text-4xl capitalize text-zinc-100'>{search}</h2>
+                <div className="gap-2 grid grid-cols-2 sm:grid-cols-5">
+                    {list && list.map((item, index) => (
+                        <Card key={index} onPress={() => setActiveModal(item._id)} shadow="sm" isPressable>
+                            <CardBody className="overflow-visible p-0">
+                                <Image
+                                    shadow="sm"
+                                    radius="lg"
+                                    width="100%"
+                                    alt={item.title}
+                                    className="w-full object-cover h-[140px]"
+                                    src={item.image}
+                                />
+                            </CardBody>
+                            <CardFooter className="text-small justify-between">
+                                <b className="truncate max-w-[10rem] overflow-hidden overflow-ellipsis">{item.title}</b>
+                                <p className="text-default-500">{item.price}</p>
+                            </CardFooter>
+                            <ProductsModal
+                                title={item.title}
+                                price={item.price}
+                                description={item.description}
+                                id={item._id}
+                                image={item.image}
+                                isOpen={activeModal === item._id}
+                                onClose={() => setActiveModal(null)}
+                            />
+                        </Card>
+                    ))}
+                </div>
 
-<form onSubmit={handleSubmit} className='px-5 py-4  border flex items-center z-10 justify-center flex-col border-zinc-600 rounded-md shadow-lg bg-gray-900' >
-    <h2>Login</h2>
-    <div className='flex gap-4 items-center justify-center flex-col'>
+            </section>
+        </main>
+    );
+};
 
-    <Input onChange={(e:any)=>setEmail(e.target.value)} type="email" variant="bordered" name="email" label="Email" className="w-[20rem]" />
-<Input onChange={(e:any)=>setPassword(e.target.value)}  type="text" name="password"  variant="bordered" label="Password" />
-<p className='text-sm'>Don&apos;t have an account? <Link className='text-blue-600' href="/auth/register">Register</Link></p>
-<Button variant='solid' className='bg-cyan-600 w-[20rem]' isLoading={open} type='submit'>
-    Submit
-    </Button>
+const SuspendedPage = () => (
+    <Suspense fallback={<div>Loading...</div>}>
+        <Page />
+    </Suspense>
+);
 
-    </div>
-    </form>
-    </div>
-  )
-}
-
-export default Page
+export default SuspendedPage;
