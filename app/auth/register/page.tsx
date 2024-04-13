@@ -2,7 +2,7 @@ import React from 'react'
 import {Input ,Button} from "@nextui-org/react";
 import Link from 'next/link';
 
-const page = () => {
+const Page = () => {
   return (
     <div className='flex container items-center justify-center h-screen'>
         <div className=' w-[790px] h-[590px] bg-cyan-600 rounded-[100%]  absolute    blur-[100px] '>
@@ -24,4 +24,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

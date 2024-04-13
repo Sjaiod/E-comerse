@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams, useSearchParams } from 'next/navigation'
 import {Card, CardBody,Skeleton, CardFooter, Image,useDisclosure} from "@nextui-org/react";
 import ProductsModal from '@/components/ProductsModal';
-const page = () => {
+const Page = () => {
     const [list, setList] = useState([]);
     const [activeModal, setActiveModal] = useState(null);
       const searchs=useSearchParams().get("search")
@@ -64,4 +64,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

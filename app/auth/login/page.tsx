@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { log } from 'console';
 import { useRouter } from 'next/navigation';
 
-const page = () => {
+const Page = () => {
     const [email,setEmail]=useState()
     const [password,setPassword] = useState()
     const [open,setOpen]=useState(false)
@@ -61,4 +61,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
