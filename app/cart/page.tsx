@@ -1,7 +1,7 @@
 "use client";
 import Nav from '@/components/Nav';
 import React, { useState, useEffect } from 'react';
-import { Divider,Image, Button, Popover, PopoverTrigger, PopoverContent,} from '@nextui-org/react';
+import { Divider,Image, Spinner, Button, Popover, PopoverTrigger, PopoverContent,} from '@nextui-org/react';
 import { FiShoppingCart } from 'react-icons/fi';
 import Footer from '@/components/Footer';
 
@@ -70,6 +70,9 @@ const Page = () => {
             </div>
             </>
         ))}
+         {!list&&(
+           <Spinner label="Danger" color="danger" labelColor="danger"/>
+        )}
       </section>
       <Footer/>
     </main>

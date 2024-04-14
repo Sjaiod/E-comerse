@@ -2,7 +2,7 @@
 import Nav from '@/components/Nav'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
-import {Card, CardBody,Skeleton, CardFooter, Image,useDisclosure} from "@nextui-org/react";
+import {Card, CardBody,Skeleton,Spinner, CardFooter, Image,useDisclosure} from "@nextui-org/react";
 import ProductsModal from '@/components/ProductsModal';
 
 const Page = () => {
@@ -57,6 +57,9 @@ const Page = () => {
             />
           </Card>
         ))}
+         {!list&&(
+           <Spinner label="Danger" color="danger" labelColor="danger"/>
+        )}
       </div>
       
   </section>

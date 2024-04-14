@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Card, CardBody, CardFooter, Image } from '@nextui-org/react';
 import ProductsModal from '../ProductsModal';
+import {Spinner} from "@nextui-org/react";
 
 const FaceItems = () => {
   const [list, setList] = useState([]);
@@ -52,6 +53,9 @@ const FaceItems = () => {
             />
           </Card>
         ))}
+        {!list&&(
+           <Spinner label="Danger" color="danger" labelColor="danger"/>
+        )}
       </div>
     </section>
   );

@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import {Card, CardBody, CardFooter,useDisclosure, Image} from "@nextui-org/react";
-import { Skeleton} from "@nextui-org/react";
+import { Skeleton,Spinner} from "@nextui-org/react";
 import ProductsModal from '../ProductsModal';
 
 const FashionItems = () => {
@@ -57,6 +57,9 @@ useEffect(()=>{
           />
         </Card>
       ))}
+       {!list&&(
+           <Spinner label="Danger" color="danger" labelColor="danger"/>
+        )}
     </div>
   </section>
   )
