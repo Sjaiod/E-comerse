@@ -102,6 +102,11 @@ const Page = () => {
           </DropdownMenu>
         </Dropdown>
         )}
+        {user&&(
+          <Button color="primary" onClick={()=>router.push("/auth/login")}>
+            Login
+          </Button>
+        )}
        
       </NavbarContent>
     </Navbar>
