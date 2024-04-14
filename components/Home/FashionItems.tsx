@@ -61,7 +61,7 @@ useEffect(()=>{
       ))}
     </div>
     {loading&&(
-           <Spinner label="Danger" color="danger" labelColor="danger"/>
+          <Spinner  color="danger" />
         )}
   </section>
   )

@@ -59,12 +59,9 @@ const Page = () => {
             />
           </Card>
         ))}
-         {!list&&(
-           <Spinner label="Danger" color="danger" labelColor="danger"/>
-        )}
       </div>
       {loading&&(
-           <Spinner label="Danger" color="danger" labelColor="danger"/>
+           <Spinner  color="danger" />
         )}
   </section>
     </main>
