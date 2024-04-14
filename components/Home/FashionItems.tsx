@@ -7,12 +7,14 @@ import ProductsModal from '../ProductsModal';
 const FashionItems = () => {
   const [list, setList] = useState([]);
   const [activeModal, setActiveModal] = useState(null);
+  const [loading,setLoading]=useState(true)
   const fetchData=async ()=>{
     try {
       const response = await fetch('/api/v2/products/category/fashions');
       const data = await response.json();
       // Set the fetched data to the state
       setList(data.items);
+      setLoading(false)
       
 
     } catch (error) {
@@ -57,10 +59,10 @@ useEffect(()=>{
           />
         </Card>
       ))}
-       {!list&&(
+    </div>
+    {loading&&(
            <Spinner label="Danger" color="danger" labelColor="danger"/>
         )}
-    </div>
   </section>
   )
 }

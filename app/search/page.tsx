@@ -2,12 +2,13 @@
 import Nav from '@/components/Nav';
 import React, { useEffect, useState, Suspense } from 'react';
 import { useParams,useSearchParams } from 'next/navigation';
-import { Card, CardBody, CardFooter, Image, useDisclosure } from "@nextui-org/react";
+import { Card, CardBody, CardFooter, Image, Spinner, useDisclosure } from "@nextui-org/react";
 import ProductsModal from '@/components/ProductsModal';
 
 const Page = () => {
     const [list, setList] = useState([]);
     const [activeModal, setActiveModal] = useState(null);
+    const [loading,setLoading]=useState(true)
     const  search  = useSearchParams().get("search");
 
     const getData = async () => {
@@ -15,6 +16,7 @@ const Page = () => {
             const getdata = await fetch(`/api/v2/products/search?search=${search}`);
             const data = await getdata.json();
             setList(data);
+            setLoading(false)
         } catch (error) {
             console.log(error);
         }
@@ -58,6 +60,9 @@ const Page = () => {
                         </Card>
                     ))}
                 </div>
+                {loading&&(
+           <Spinner label="Danger" color="danger" labelColor="danger"/>
+        )}
             </section>
         </main>
     );

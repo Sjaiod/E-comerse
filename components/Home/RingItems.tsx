@@ -6,6 +6,7 @@ import ProductsModal from '../ProductsModal';
 const RingItems = () => {
   const [list, setList] = useState([]);
   const [activeModal, setActiveModal] = useState(null);
+  const [loading,setLoading]=useState(true)
 
   const fetchData=async ()=>{
     try {
@@ -13,6 +14,7 @@ const RingItems = () => {
       const data = await response.json();
       // Set the fetched data to the state
       setList(data.items);
+      setLoading(false)
       
 
     } catch (error) {
@@ -61,6 +63,9 @@ useEffect(()=>{
            <Spinner label="Danger" color="danger" labelColor="danger"/>
         )}
     </div>
+    {loading&&(
+           <Spinner label="Danger" color="danger" labelColor="danger"/>
+        )}
   </section>
   )
 }

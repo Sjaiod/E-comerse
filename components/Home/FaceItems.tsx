@@ -7,12 +7,14 @@ import {Spinner} from "@nextui-org/react";
 const FaceItems = () => {
   const [list, setList] = useState([]);
   const [activeModal, setActiveModal] = useState(null);
+  const [loading,setLoading]=useState(true)
 
   const fetchData = async () => {
     try {
       const response = await fetch('/api/v2/products/category/face');
       const data = await response.json();
       setList(data.items);
+      setLoading(false)
     } catch (error) {
       console.log(error);
     }
@@ -53,10 +55,11 @@ const FaceItems = () => {
             />
           </Card>
         ))}
-        {!list&&(
+      
+      </div>
+      {loading&&(
            <Spinner label="Danger" color="danger" labelColor="danger"/>
         )}
-      </div>
     </section>
   );
 };

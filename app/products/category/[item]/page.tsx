@@ -9,6 +9,7 @@ const Page = () => {
   const [list, setList] = useState([]);
   const [activeModal, setActiveModal] = useState(null);
     const params = useParams<{ item: string }>()
+    const [loading,setLoading]=useState(true)
     
 
     const getData=async(params)=>{
@@ -16,6 +17,7 @@ const Page = () => {
             const getdata= await fetch(`/api/v2/products/categoryes/${params.item}`)
             const data = await getdata.json();
             setList(data.items)
+            setLoading(false)
         } catch (error) {
             console.log(error);
             
@@ -61,7 +63,9 @@ const Page = () => {
            <Spinner label="Danger" color="danger" labelColor="danger"/>
         )}
       </div>
-      
+      {loading&&(
+           <Spinner label="Danger" color="danger" labelColor="danger"/>
+        )}
   </section>
     </main>
   )

@@ -9,6 +9,7 @@ import { NextURL } from 'next/dist/server/web/next-url';
 
 const Page = () => {
     const [user,setUser]=useState<any>()
+    const [loading,setLoading]=useState(true)
    
 
     const path=useParams()
@@ -26,6 +27,8 @@ const Page = () => {
       if(userInfo){
           const user=JSON.parse(userInfo)
           setUser(user)
+          setLoading(false)
+         
       }
     },[])
        
@@ -102,7 +105,7 @@ const Page = () => {
           </DropdownMenu>
         </Dropdown>
         )}
-        {user&&(
+        {loading&&(
           <Button color="primary" onClick={()=>router.push("/auth/login")}>
             Login
           </Button>

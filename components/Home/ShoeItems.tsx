@@ -7,6 +7,7 @@ import ProductsModal from '../ProductsModal';
 const ShoeItems = () => {
   const [list, setList] = useState([]);
   const [activeModal, setActiveModal] = useState(null);
+  const [loading,setLoading]=useState(true)
 
     const fetchData=async ()=>{
       try {
@@ -14,6 +15,7 @@ const ShoeItems = () => {
         const data = await response.json();
         // Set the fetched data to the state
         setList(data.items);
+        setLoading(false)
         
   
       } catch (error) {
@@ -58,10 +60,10 @@ const ShoeItems = () => {
           />
         </Card>
       ))}
-       {!list&&(
+    </div>
+    {loading&&(
            <Spinner label="Danger" color="danger" labelColor="danger"/>
         )}
-    </div>
   </section>
   )
 }
